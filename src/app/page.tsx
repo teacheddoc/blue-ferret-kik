@@ -101,7 +101,7 @@ export default function HomePage() {
             className="flex flex-col sm:flex-row gap-3.5 sm:gap-4 w-full sm:w-auto justify-center"
           >
             <Link
-              href="/igry"
+              href="/igry/"
               className="group inline-flex w-full sm:w-auto max-w-xs mx-auto items-center justify-center gap-2 px-8 sm:px-10 py-4 text-sm font-bold bg-[var(--bf-accent)] hover:bg-[var(--bf-accent-hover)] text-white rounded-full transition-colors shadow-[0_14px_30px_-18px_rgba(0,159,227,0.7)]"
             >
               <Gamepad2 className="w-5 h-5" />
@@ -109,7 +109,7 @@ export default function HomePage() {
               <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
             </Link>
             <Link
-              href="/kik"
+              href="/kik/"
               className="group inline-flex w-full sm:w-auto max-w-xs mx-auto items-center justify-center gap-2 px-8 sm:px-10 py-4 text-sm font-bold border-2 border-slate-200 text-slate-700 bg-white rounded-full hover:border-[var(--bf-accent)] hover:text-[var(--bf-accent)] transition-colors"
             >
               КІК вдома
@@ -303,7 +303,7 @@ export default function HomePage() {
             className="grid md:grid-cols-2 gap-8 lg:gap-12"
           >
             <Link
-              href="/igry"
+              href="/igry/"
               className="group block p-8 sm:p-9 rounded-3xl bg-white border-2 border-slate-200/80 hover:border-[var(--bf-accent)]/45 shadow-[0_12px_30px_-22px_rgba(15,23,42,0.3)] hover:-translate-y-1 hover:shadow-[0_24px_45px_-26px_rgba(0,159,227,0.3)] transition-all duration-300"
             >
               <div className="w-14 h-14 rounded-2xl bg-[var(--bf-accent-muted)] flex items-center justify-center mb-6 group-hover:scale-105 transition-transform">
@@ -321,7 +321,7 @@ export default function HomePage() {
               </span>
             </Link>
             <Link
-              href="/kik"
+              href="/kik/"
               className="group block p-8 sm:p-9 rounded-3xl bg-white border-2 border-slate-200/80 hover:border-[var(--kik-accent)]/45 shadow-[0_12px_30px_-22px_rgba(15,23,42,0.3)] hover:-translate-y-1 hover:shadow-[0_24px_45px_-26px_rgba(75,178,114,0.3)] transition-all duration-300"
             >
               <div className="w-14 h-14 rounded-2xl bg-[var(--kik-accent-muted)] flex items-center justify-center mb-6 group-hover:scale-105 transition-transform">
@@ -348,14 +348,14 @@ export default function HomePage() {
 
       {/* CTA — світла стилістика видавництва */}
       <section className="relative py-24 sm:py-40 lg:py-48 px-4 sm:px-6 overflow-hidden bg-gradient-to-b from-blue-50/50 via-white to-blue-50/30">
-        <div className="absolute inset-0 bg-dots opacity-20" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_120%_80%_at_50%_0%,rgba(0,159,227,0.12)_0%,transparent_60%)]" />
+        <div className="absolute inset-0 bg-dots opacity-20 pointer-events-none" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_120%_80%_at_50%_0%,rgba(0,159,227,0.12)_0%,transparent_60%)] pointer-events-none" />
 
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="relative max-w-4xl mx-auto text-center z-10"
+          className="relative max-w-4xl mx-auto text-center z-10 pointer-events-auto"
         >
           <p className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-slate-800 mb-5 sm:mb-8 tracking-tight leading-[0.98]">
             {cta?.title ?? 'Готові відкрити новий світ?'}
@@ -368,21 +368,23 @@ export default function HomePage() {
           </p>
           <div className="flex flex-col sm:flex-row gap-6 sm:gap-8 justify-center items-center">
             <Link
-              href="/igry"
-              className="group inline-flex w-full max-w-xs sm:w-auto items-center justify-center gap-3 px-8 sm:px-12 py-4 sm:py-5 bg-[var(--bf-accent)] text-white font-bold text-base sm:text-lg rounded-2xl hover:bg-[var(--bf-accent-hover)] transition-colors shadow-[0_14px_30px_-18px_rgba(0,159,227,0.5)] touch-target"
+              href="/igry/"
+              prefetch={false}
+              className="group relative z-20 inline-flex w-full max-w-xs sm:w-auto items-center justify-center gap-3 px-8 sm:px-12 py-4 sm:py-5 bg-[var(--bf-accent)] text-white font-bold text-base sm:text-lg rounded-2xl hover:bg-[var(--bf-accent-hover)] transition-colors shadow-[0_14px_30px_-18px_rgba(0,159,227,0.5)] touch-target"
             >
               <Gamepad2 className="w-6 h-6" />
               Переглянути ігри
             </Link>
             <Link
-              href="/kik"
-              className="group inline-flex w-full max-w-xs sm:w-auto items-center justify-center gap-3 px-8 sm:px-12 py-4 sm:py-5 bg-white text-[var(--bf-accent)] font-bold text-base sm:text-lg rounded-2xl border-2 border-[var(--bf-accent)]/50 hover:bg-[var(--bf-accent-muted)] hover:border-[var(--bf-accent)] transition-colors touch-target shadow-[0_12px_24px_-18px_rgba(15,23,42,0.35)]"
+              href="/kik/"
+              prefetch={false}
+              className="group relative z-20 inline-flex w-full max-w-xs sm:w-auto items-center justify-center gap-3 px-8 sm:px-12 py-4 sm:py-5 bg-white text-[var(--bf-accent)] font-bold text-base sm:text-lg rounded-2xl border-2 border-[var(--bf-accent)]/50 hover:bg-[var(--bf-accent-muted)] hover:border-[var(--bf-accent)] transition-colors touch-target shadow-[0_12px_24px_-18px_rgba(15,23,42,0.35)]"
             >
               <Heart className="w-6 h-6" />
               Кік-вдома
             </Link>
             <Link
-              href="/kontakty"
+              href="/kontakty/"
               className="group inline-flex items-center justify-center gap-2 px-8 sm:px-12 py-4 sm:py-6 text-slate-600 font-semibold hover:text-[var(--bf-accent)] transition-all text-base sm:text-lg"
             >
               Контакти
