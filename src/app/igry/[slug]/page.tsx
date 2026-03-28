@@ -3,6 +3,10 @@ import { Metadata } from 'next';
 import games from '@/data/games';
 import GamePageClient from './GamePageClient';
 
+export function generateStaticParams() {
+  return games.map((game) => ({ slug: game.slug }));
+}
+
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
   const game = games.find((g) => g.slug === slug);

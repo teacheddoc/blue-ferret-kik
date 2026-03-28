@@ -32,7 +32,7 @@
 ```bash
 npm install
 npm run dev      # http://localhost:3000
-npm run build    # Production build (--webpack через баг Turbopack з кирилицею в шляху)
+npm run build    # Статичний export у папку out/ для GitHub Pages
 ```
 
 ## CMS-ready структура
@@ -45,19 +45,13 @@ npm run build    # Production build (--webpack через баг Turbopack з к
 Кожна гра має 4 етапи: Анонс → Виробництво → Передзамовлення → У вільному продажі.  
 Заблоковані етапи візуально затемнені з іконкою замка.
 
-## Платіжна система (Plata by Mono)
+## Деплой на GitHub Pages
 
-Інтегровано **Plata by Mono** (Monobank еквайринг) для оплати картками Visa/Mastercard.
+- У репозиторії є workflow: `.github/workflows/deploy-pages.yml`
+- Після push у `main` сайт автоматично деплоїться у GitHub Pages
+- Кастомний домен: `blueferret.com.ua` (файл `public/CNAME`)
 
-**Налаштування:**
-1. Скопіюйте `.env.example` → `.env`
-2. Додайте `MONO_API_TOKEN` — токен з [api.monobank.ua](https://api.monobank.ua/) (тест) або [web.monobank.ua](https://web.monobank.ua/) (продакшн)
-3. Для продакшн — налаштуйте webhook URL у кабінеті Mono: `https://your-site.com/api/mono/webhook`
+## Важливо про оплату (Mono)
 
-**Як працює:**
-
-- У модальному вікні замовлення (кнопка «ПРИДБАТИ» на сторінці гри) з’являється кнопка «Оплатити через Mono»
-- Після натискання створюється рахунок і користувач перенаправляється на сторінку оплати Mono
-- Після успішної оплати — редірект на `/igry?payment=success` з повідомленням
-
-**Потрібно:** додати поле `price` (грн) до ігор у `src/data/games.ts`.
+GitHub Pages — це лише статичний хостинг, тому API-роути для Mono у `src/app/api/*` вимкнено для цього деплою.
+Заготовки серверної логіки збережені в `src/server/mono/*` для майбутнього переносу на серверний хостинг.

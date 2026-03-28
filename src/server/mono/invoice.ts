@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 
 const MONO_API_URL = process.env.MONO_API_URL || 'https://api.monobank.ua';
 
-export async function POST(request: NextRequest) {
+export async function createMonoInvoice(request: NextRequest) {
   const token = process.env.MONO_API_TOKEN;
   if (!token) {
     return NextResponse.json(

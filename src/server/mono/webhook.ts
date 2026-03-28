@@ -3,10 +3,10 @@ import { NextRequest, NextResponse } from 'next/server';
 /**
  * Webhook для Plata by Mono — отримує зміни статусу оплати.
  * Налаштуйте цей URL у кабінеті Mono: https://web.monobank.ua
- * 
+ *
  * Статуси: created | processing | success | failure | expired
  */
-export async function POST(request: NextRequest) {
+export async function handleMonoWebhook(request: NextRequest) {
   try {
     const body = await request.text();
     const _xSign = request.headers.get('X-Sign'); // TODO: verify signature
