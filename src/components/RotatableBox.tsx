@@ -36,9 +36,9 @@ export default function RotatableBox({
   const resumeTimer = useRef<NodeJS.Timeout | null>(null);
 
   // Board game box proportions (landscape, thinner depth)
-  const W = 332;
-  const H = 248;
-  const D = 52;
+  const W = 304;
+  const H = 228;
+  const D = 50;
 
   // Auto-rotate — smooth
   useEffect(() => {

@@ -27,10 +27,10 @@ export default function HomePage() {
         ref={heroRef}
         className="relative min-h-[100vh] flex flex-col overflow-hidden bg-white"
       >
-        <div className="absolute inset-0 bg-gradient-to-br from-white via-blue-50/55 to-emerald-50/35" />
-        <div className="absolute inset-0 bg-dots opacity-25" />
-        <div className="absolute inset-0 bg-grain opacity-45" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_90%_55%_at_50%_-10%,rgba(0,159,227,0.12)_0%,transparent_55%)]" />
+        <div className="absolute inset-0 bg-gradient-to-br from-white via-blue-50/55 to-emerald-50/35 pointer-events-none" />
+        <div className="absolute inset-0 bg-dots opacity-25 pointer-events-none" />
+        <div className="absolute inset-0 bg-grain opacity-45 pointer-events-none" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_90%_55%_at_50%_-10%,rgba(0,159,227,0.12)_0%,transparent_55%)] pointer-events-none" />
         <HeroDecorationsLight />
 
         <motion.div style={{ y, opacity, scale }} className="relative flex-1 flex flex-col items-center justify-center z-10 px-4 sm:px-6">
@@ -124,9 +124,9 @@ export default function HomePage() {
 
       {/* Хто ми — світла стилістика видавництва */}
       <section className="relative py-28 sm:py-36 overflow-hidden bg-gradient-to-b from-white via-blue-50/30 to-white">
-        <div className="absolute inset-0 bg-dots opacity-15" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_0%,rgba(0,159,227,0.08)_0%,transparent_50%)]" />
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-40 overflow-hidden">
+        <div className="absolute inset-0 bg-dots opacity-15 pointer-events-none" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_0%,rgba(0,159,227,0.08)_0%,transparent_50%)] pointer-events-none" />
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-40 overflow-hidden pointer-events-none">
           <motion.div
             initial={{ scaleX: 0 }}
             whileInView={{ scaleX: 1 }}
@@ -213,8 +213,8 @@ export default function HomePage() {
 
       {/* Цінності — світла стилістика */}
       <section className="py-28 sm:py-36 px-4 sm:px-6 bg-gradient-to-b from-white via-blue-50/20 to-white relative overflow-hidden">
-        <div className="absolute inset-0 bg-dots opacity-15" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_100%_60%_at_50%_100%,rgba(0,159,227,0.06)_0%,transparent_50%)]" />
+        <div className="absolute inset-0 bg-dots opacity-15 pointer-events-none" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_100%_60%_at_50%_100%,rgba(0,159,227,0.06)_0%,transparent_50%)] pointer-events-none" />
         <div className="max-w-6xl mx-auto relative">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -258,8 +258,8 @@ export default function HomePage() {
 
       {/* Наш підхід — світла контрастна секція */}
       <section className="py-28 sm:py-36 px-4 sm:px-6 bg-white relative overflow-hidden">
-        <div className="absolute inset-0 bg-dots opacity-20" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_100%,rgba(75,178,114,0.06)_0%,transparent_60%)]" />
+        <div className="absolute inset-0 bg-dots opacity-20 pointer-events-none" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_100%,rgba(75,178,114,0.06)_0%,transparent_60%)] pointer-events-none" />
         <div className="max-w-5xl mx-auto relative">
           <motion.h2
             initial={{ opacity: 0, y: 30 }}
@@ -292,9 +292,9 @@ export default function HomePage() {
 
       {/* Превʼю KIK та ігор */}
       <section className="py-20 sm:py-28 px-4 sm:px-6 bg-gradient-to-br from-slate-50 via-white to-emerald-50/40 relative overflow-hidden">
-        <div className="absolute inset-0 bg-dots opacity-25" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_100%_60%_at_20%_50%,rgba(0,159,227,0.08)_0%,transparent_50%)]" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_80%_50%,rgba(75,178,114,0.08)_0%,transparent_50%)]" />
+        <div className="absolute inset-0 bg-dots opacity-25 pointer-events-none" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_100%_60%_at_20%_50%,rgba(0,159,227,0.08)_0%,transparent_50%)] pointer-events-none" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_80%_50%,rgba(75,178,114,0.08)_0%,transparent_50%)] pointer-events-none" />
         <div className="max-w-6xl mx-auto relative">
           <motion.div
             initial={{ opacity: 0, y: 30 }}

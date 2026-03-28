@@ -246,7 +246,7 @@ export default function GamePageClient({ game }: { game: Game }) {
               )}
             </div>
             <div
-              className="absolute inset-0"
+              className="absolute inset-0 pointer-events-none"
               style={{
                 background: `linear-gradient(180deg, rgba(${paletteRgb.r},${paletteRgb.g},${paletteRgb.b},0.32) 0%, rgba(${paletteRgb.r},${paletteRgb.g},${paletteRgb.b},0) 46%, rgba(${paletteRgb.r},${paletteRgb.g},${paletteRgb.b},0.62) 100%)`,
               }}
@@ -350,7 +350,7 @@ export default function GamePageClient({ game }: { game: Game }) {
           </>
         ) : (
           <div
-            className="absolute inset-0"
+            className="absolute inset-0 pointer-events-none"
             style={{
               background: `linear-gradient(135deg, ${palette} 0%, ${palette}dd 40%, ${bg1} 100%)`,
             }}
@@ -565,7 +565,7 @@ export default function GamePageClient({ game }: { game: Game }) {
               initial={{ opacity: 0, x: -30 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              className="p-4 sm:p-10 rounded-3xl flex items-center justify-center min-h-[260px] sm:min-h-[420px]"
+              className="p-3 sm:p-10 rounded-3xl flex items-center justify-center min-h-[300px] sm:min-h-[420px]"
               style={{
                 background: `${boxHighlight}, ${boxBg}`,
                 border: `1px solid ${border1}`,
@@ -580,7 +580,7 @@ export default function GamePageClient({ game }: { game: Game }) {
                   color={palette}
                   sideLabel={game.name}
                   interactive={false}
-                  className="scale-[1] sm:scale-[1.1] md:scale-[1.18]"
+                  className="scale-[0.74] min-[400px]:scale-[0.84] sm:scale-[1.02] md:scale-[1.12] lg:scale-[1.18]"
                 />
               ) : (
                 <div className="aspect-square w-full rounded-xl border-2 border-dashed flex items-center justify-center" style={{ borderColor: border1 }}>

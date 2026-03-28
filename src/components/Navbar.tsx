@@ -34,12 +34,45 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
+  useEffect(() => {
+    setMobileOpen(false);
+    setGamesOpen(false);
+    setKikOpen(false);
+  }, [pathname]);
+
+  useEffect(() => {
+    if (!mobileOpen) return;
+
+    const prevOverflow = document.body.style.overflow;
+    const prevTouchAction = document.body.style.touchAction;
+    document.body.style.overflow = 'hidden';
+    document.body.style.touchAction = 'none';
+
+    return () => {
+      document.body.style.overflow = prevOverflow;
+      document.body.style.touchAction = prevTouchAction;
+    };
+  }, [mobileOpen]);
+
+  useEffect(() => {
+    if (!mobileOpen) return;
+
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        setMobileOpen(false);
+      }
+    };
+
+    window.addEventListener('keydown', onKeyDown);
+    return () => window.removeEventListener('keydown', onKeyDown);
+  }, [mobileOpen]);
+
   const isGamePage = pathname.startsWith('/igry/') && pathname !== '/igry';
   const isPublisherPage = !isGamePage;
 
   return (
     <header
-      className={`z-50 md:sticky md:top-0 transition-all duration-300 ${
+      className={`z-50 pt-[env(safe-area-inset-top)] md:sticky md:top-0 transition-all duration-300 ${
         isGamePage
           ? 'bg-[#0a0f1a]/98 backdrop-blur-2xl border-b border-white/5 shadow-[0_4px_30px_-10px_rgba(0,0,0,0.5)]'
           : 'bg-white/95 backdrop-blur-xl border-b border-slate-200/60 shadow-[0_1px_20px_-8px_rgba(0,0,0,0.08)]'
@@ -164,6 +197,8 @@ export default function Navbar() {
             onClick={() => setMobileOpen(!mobileOpen)}
             className={`md:hidden p-3 -mr-2 rounded-xl transition-colors duration-200 ${isGamePage ? 'hover:bg-white/10 active:bg-white/20' : 'hover:bg-slate-100 active:bg-slate-200'}`}
             aria-label={mobileOpen ? 'Закрити меню' : 'Відкрити меню'}
+            aria-expanded={mobileOpen}
+            aria-controls="mobile-site-nav"
           >
             {mobileOpen ? <X className={`w-6 h-6 ${isGamePage ? 'text-white' : 'text-slate-800'}`} /> : <Menu className={`w-6 h-6 ${isGamePage ? 'text-white' : 'text-slate-800'}`} />}
           </button>
@@ -171,30 +206,44 @@ export default function Navbar() {
 
         <AnimatePresence>
           {mobileOpen && (
-            <motion.div
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: 'auto' }}
-              exit={{ opacity: 0, height: 0 }}
-              transition={{ duration: 0.25 }}
-              className={`md:hidden overflow-hidden border-t ${isGamePage ? 'border-white/20 bg-slate-900/98' : 'border-slate-200 bg-white/98'} backdrop-blur-xl`}
-            >
-              <div className="py-4 space-y-0.5">
-                <Link href="/" onClick={() => setMobileOpen(false)} className={`block py-3 px-4 rounded-xl text-base font-medium transition-colors ${isGamePage ? (pathname === '/' ? 'text-white bg-white/15' : 'text-slate-300 hover:bg-white/10') : (pathname === '/' ? 'text-[var(--bf-accent)] bg-[var(--bf-accent)]/10' : 'text-slate-600 hover:bg-[var(--bf-accent)]/5 hover:text-[var(--bf-accent)]')}`}>Головна</Link>
-                <div className={`px-4 py-2 text-xs font-semibold uppercase tracking-wider ${isGamePage ? 'text-slate-500' : 'text-slate-500'}`}>Наші ігри</div>
-                {GAMES_DROPDOWN.map((item) => (
-                  <Link key={item.href} href={item.href} onClick={() => setMobileOpen(false)} className={`block py-2.5 px-6 rounded-xl transition-colors ${isGamePage ? 'text-slate-300 hover:bg-white/10 hover:text-[var(--bf-accent)]' : 'text-slate-600 hover:bg-[var(--bf-accent)]/5 hover:text-[var(--bf-accent)]'}`}>
-                    {item.label}
-                  </Link>
-                ))}
-                <Link href="/kontakty" onClick={() => setMobileOpen(false)} className={`block py-3 px-4 rounded-xl text-base font-medium transition-colors ${isGamePage ? (pathname === '/kontakty' ? 'text-white bg-white/15' : 'text-slate-300 hover:bg-white/10') : (pathname === '/kontakty' ? 'text-[var(--bf-accent)] bg-[var(--bf-accent)]/10' : 'text-slate-600 hover:bg-[var(--bf-accent)]/5 hover:text-[var(--bf-accent)]')}`}>Контакти</Link>
-                <div className="px-4 py-2 text-xs font-semibold uppercase tracking-wider text-slate-500">Кік-вдома</div>
-                {KIK_DROPDOWN.map((item) => (
-                  <Link key={item.href} href={item.href} onClick={() => setMobileOpen(false)} className={`block py-2.5 px-6 rounded-xl transition-colors ${isGamePage ? 'text-slate-300 hover:bg-white/10 hover:text-[var(--kik-accent)]' : 'text-slate-600 hover:bg-[var(--bf-accent)]/5 hover:text-[var(--bf-accent)]'}`}>
-                    {item.label}
-                  </Link>
-                ))}
-              </div>
-            </motion.div>
+            <>
+              <motion.button
+                type="button"
+                aria-label="Закрити мобільне меню"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.2 }}
+                className="md:hidden fixed inset-0 z-40 bg-slate-950/35 backdrop-blur-[1px]"
+                onClick={() => setMobileOpen(false)}
+              />
+
+              <motion.div
+                id="mobile-site-nav"
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
+                transition={{ duration: 0.22 }}
+                className={`md:hidden fixed inset-x-0 top-[calc(3.75rem+env(safe-area-inset-top))] sm:top-[calc(4rem+env(safe-area-inset-top))] z-50 max-h-[calc(100dvh-3.75rem-env(safe-area-inset-top))] sm:max-h-[calc(100dvh-4rem-env(safe-area-inset-top))] overflow-y-auto border-t shadow-[0_30px_70px_-30px_rgba(0,0,0,0.7)] ${isGamePage ? 'border-white/20 bg-slate-900/98' : 'border-slate-200 bg-white/98'} backdrop-blur-xl`}
+              >
+                <div className="py-4 space-y-0.5 px-4">
+                  <Link href="/" onClick={() => setMobileOpen(false)} className={`block py-3 px-4 rounded-xl text-base font-medium transition-colors ${isGamePage ? (pathname === '/' ? 'text-white bg-white/15' : 'text-slate-300 hover:bg-white/10') : (pathname === '/' ? 'text-[var(--bf-accent)] bg-[var(--bf-accent)]/10' : 'text-slate-600 hover:bg-[var(--bf-accent)]/5 hover:text-[var(--bf-accent)]')}`}>Головна</Link>
+                  <div className={`px-4 py-2 text-xs font-semibold uppercase tracking-wider ${isGamePage ? 'text-slate-500' : 'text-slate-500'}`}>Наші ігри</div>
+                  {GAMES_DROPDOWN.map((item) => (
+                    <Link key={item.href} href={item.href} onClick={() => setMobileOpen(false)} className={`block py-2.5 px-6 rounded-xl transition-colors ${isGamePage ? 'text-slate-300 hover:bg-white/10 hover:text-[var(--bf-accent)]' : 'text-slate-600 hover:bg-[var(--bf-accent)]/5 hover:text-[var(--bf-accent)]'}`}>
+                      {item.label}
+                    </Link>
+                  ))}
+                  <Link href="/kontakty" onClick={() => setMobileOpen(false)} className={`block py-3 px-4 rounded-xl text-base font-medium transition-colors ${isGamePage ? (pathname === '/kontakty' ? 'text-white bg-white/15' : 'text-slate-300 hover:bg-white/10') : (pathname === '/kontakty' ? 'text-[var(--bf-accent)] bg-[var(--bf-accent)]/10' : 'text-slate-600 hover:bg-[var(--bf-accent)]/5 hover:text-[var(--bf-accent)]')}`}>Контакти</Link>
+                  <div className="px-4 py-2 text-xs font-semibold uppercase tracking-wider text-slate-500">Кік-вдома</div>
+                  {KIK_DROPDOWN.map((item) => (
+                    <Link key={item.href} href={item.href} onClick={() => setMobileOpen(false)} className={`block py-2.5 px-6 rounded-xl transition-colors ${isGamePage ? 'text-slate-300 hover:bg-white/10 hover:text-[var(--kik-accent)]' : 'text-slate-600 hover:bg-[var(--bf-accent)]/5 hover:text-[var(--bf-accent)]'}`}>
+                      {item.label}
+                    </Link>
+                  ))}
+                </div>
+              </motion.div>
+            </>
           )}
         </AnimatePresence>
       </nav>
