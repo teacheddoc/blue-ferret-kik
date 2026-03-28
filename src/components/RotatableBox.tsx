@@ -42,7 +42,7 @@ export default function RotatableBox({
 
   // Auto-rotate — smooth
   useEffect(() => {
-    if (!autoRotate) return;
+    if (!autoRotate || !interactive) return;
     let start = performance.now();
     const startY = baseY.current;
     const animate = (time: number) => {
@@ -159,7 +159,7 @@ export default function RotatableBox({
     marginLeft: -w / 2,
     marginTop: -h / 2,
     transform,
-    backfaceVisibility: 'visible',
+    backfaceVisibility: 'hidden',
     backgroundColor: bg,
     borderRadius: 4,
     overflow: 'hidden',
@@ -198,8 +198,11 @@ export default function RotatableBox({
           margin: '18px auto',
           position: 'relative',
           transformStyle: 'preserve-3d',
-          transform: `translateZ(0) rotateX(${rotation.x}deg) rotateY(${rotation.y}deg)`,
-          transition: isDragging ? 'none' : 'transform 0.08s ease-out',
+          transform: interactive
+            ? `translateZ(0) rotateX(${rotation.x}deg) rotateY(${rotation.y}deg)`
+            : 'translateZ(0) rotateX(-11deg) rotateY(-18deg)',
+          animation: interactive ? undefined : 'box-auto-spin 15s linear infinite',
+          transition: interactive && !isDragging ? 'transform 0.08s ease-out' : 'none',
           willChange: 'transform',
         }}
       >

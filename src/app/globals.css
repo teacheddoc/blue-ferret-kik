@@ -160,6 +160,12 @@ html {
   to { opacity: 1; transform: translateY(0); }
 }
 
+@keyframes box-auto-spin {
+  0% { transform: translateZ(0) rotateX(-11deg) rotateY(-18deg); }
+  50% { transform: translateZ(0) rotateX(-10deg) rotateY(162deg); }
+  100% { transform: translateZ(0) rotateX(-11deg) rotateY(342deg); }
+}
+
 @keyframes subtle-glow {
   0%, 100% { opacity: 0.6; }
   50% { opacity: 1; }
