@@ -208,7 +208,7 @@ export default function GamePageClient({ game }: { game: Game }) {
   };
 
   return (
-    <div style={{ backgroundColor: bg1 }}>
+    <div className="overflow-x-hidden" style={{ backgroundColor: bg1 }}>
       {/* ═══════ HERO ═══════ */}
       <section
         ref={heroRef}
@@ -683,7 +683,6 @@ export default function GamePageClient({ game }: { game: Game }) {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: i * 0.06 }}
-                  whileHover={{ scale: 1.008 }}
                   whileTap={{ scale: 0.996 }}
                   tabIndex={0}
                   className="relative rounded-2xl sm:rounded-3xl px-4 py-4 sm:px-8 sm:py-7 overflow-hidden"

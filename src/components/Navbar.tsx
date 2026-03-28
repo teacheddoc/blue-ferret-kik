@@ -39,7 +39,7 @@ export default function Navbar() {
 
   return (
     <header
-      className={`sticky top-0 z-50 transition-all duration-300 ${
+      className={`z-50 md:sticky md:top-0 transition-all duration-300 ${
         isGamePage
           ? 'bg-[#0a0f1a]/98 backdrop-blur-2xl border-b border-white/5 shadow-[0_4px_30px_-10px_rgba(0,0,0,0.5)]'
           : 'bg-white/95 backdrop-blur-xl border-b border-slate-200/60 shadow-[0_1px_20px_-8px_rgba(0,0,0,0.08)]'
