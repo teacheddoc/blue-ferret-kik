@@ -19,7 +19,7 @@ import {
 import type { Game } from '@/data/games';
 import RotatableBox from '@/components/RotatableBox';
 
-const STAGE_ORDER = ['announcement', 'production', 'preorder', 'onsale'] as const;
+const STAGE_ORDER = ['announcement', 'preorder', 'production', 'onsale'] as const;
 type StageKey = (typeof STAGE_ORDER)[number];
 
 /* ───── helpers ───── */
@@ -673,6 +673,7 @@ export default function GamePageClient({ game }: { game: Game }) {
 
               const isActive = stage.state === 'active';
               const isLocked = stage.state === 'locked';
+              const showInactiveOverlay = !isActive;
               const badgeText = stageBadgeLabels[stage.state];
               const isExpanded = expandedStage === stageKey;
               const preview =
@@ -689,7 +690,8 @@ export default function GamePageClient({ game }: { game: Game }) {
                   transition={{ delay: i * 0.06 }}
                   whileTap={{ scale: 0.996 }}
                   tabIndex={0}
-                  className="relative rounded-2xl sm:rounded-3xl px-4 py-4 sm:px-8 sm:py-7 overflow-hidden"
+                  aria-disabled={isLocked}
+                  className="relative rounded-2xl sm:rounded-3xl px-4 py-4 sm:px-8 sm:py-7 min-h-[132px] sm:min-h-[152px] overflow-hidden"
                   style={{
                     background: isActive
                       ? `linear-gradient(135deg, rgba(${accentRgb.r},${accentRgb.g},${accentRgb.b},0.22) 0%, ${darken(palette, 0.28)} 48%, ${darken(palette, 0.34)} 100%)`
@@ -797,24 +799,38 @@ export default function GamePageClient({ game }: { game: Game }) {
                       </motion.div>
                     </>
                   ) : (
-                    <div className="mt-3 flex items-start sm:items-center gap-3 text-sm sm:text-base text-white/62">
-                      <motion.span
-                        className="relative inline-flex h-8 w-8 sm:h-9 sm:w-9 items-center justify-center rounded-full"
-                        style={{
-                          backgroundColor: `rgba(${accentRgb.r},${accentRgb.g},${accentRgb.b},0.2)`,
-                          border: `1px solid rgba(${accentRgb.r},${accentRgb.g},${accentRgb.b},0.48)`,
-                          boxShadow: `0 0 0 3px rgba(${accentRgb.r},${accentRgb.g},${accentRgb.b},0.12), 0 10px 16px -12px rgba(0,0,0,0.75)`,
-                        }}
-                        animate={
-                          lockFeedbackStage === stageKey
-                            ? { rotate: [0, -16, 10, -8, 0], scale: [1, 1.14, 1] }
-                            : { rotate: 0, scale: 1 }
-                        }
-                        transition={{ duration: 0.34 }}
-                      >
-                        <Lock className="w-4 h-4 sm:w-[18px] sm:h-[18px] text-white/90" />
-                      </motion.span>
-                      <span className="leading-snug">Секція ще не заповнена</span>
+                    <div className="mt-3 text-sm sm:text-base text-white/52">
+                      Секція ще не заповнена
+                    </div>
+                  )}
+
+                  {showInactiveOverlay && (
+                    <div
+                      className="pointer-events-none absolute inset-0 z-10"
+                      style={{
+                        background:
+                          'linear-gradient(180deg, rgba(2,8,20,0.28) 0%, rgba(2,8,20,0.6) 100%)',
+                      }}
+                    >
+                      <div className="absolute inset-0 flex items-center justify-center">
+                        <motion.div
+                          className="relative inline-flex h-20 w-20 sm:h-24 sm:w-24 items-center justify-center rounded-full border"
+                          style={{
+                            backgroundColor: 'rgba(10,24,44,0.55)',
+                            borderColor: 'rgba(184,212,245,0.42)',
+                            boxShadow:
+                              '0 0 0 5px rgba(105,148,206,0.16), 0 22px 34px -18px rgba(0,0,0,0.78)',
+                          }}
+                          animate={
+                            lockFeedbackStage === stageKey
+                              ? { rotate: [0, -14, 8, -5, 0], scale: [1, 1.12, 1] }
+                              : { rotate: 0, scale: 1 }
+                          }
+                          transition={{ duration: 0.36 }}
+                        >
+                          <Lock className="w-9 h-9 sm:w-10 sm:h-10 text-white/95" />
+                        </motion.div>
+                      </div>
                     </div>
                   )}
                 </motion.article>
