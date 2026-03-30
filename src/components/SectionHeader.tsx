@@ -8,11 +8,20 @@ interface SectionHeaderProps {
   subtitle?: string;
   centered?: boolean;
   className?: string;
+  titleClassName?: string;
   /** 'default' = uppercase label, 'accent' = gradient label */
   labelVariant?: 'default' | 'accent';
 }
 
-export default function SectionHeader({ label, title, subtitle, centered = true, className = '', labelVariant = 'default' }: SectionHeaderProps) {
+export default function SectionHeader({
+  label,
+  title,
+  subtitle,
+  centered = true,
+  className = '',
+  titleClassName = '',
+  labelVariant = 'default',
+}: SectionHeaderProps) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -27,7 +36,7 @@ export default function SectionHeader({ label, title, subtitle, centered = true,
       {label && (
         <p className={`mb-3 ${labelVariant === 'accent' ? 'text-3xl sm:text-4xl text-gradient-warm' : 'section-label'}`}>{label}</p>
       )}
-      <h2 className="heading-2 text-3xl sm:text-4xl md:text-5xl mb-4 tracking-tight">
+      <h2 className={`heading-2 text-3xl sm:text-4xl md:text-5xl mb-4 tracking-tight ${titleClassName}`}>
         {title}
       </h2>
       {subtitle && (

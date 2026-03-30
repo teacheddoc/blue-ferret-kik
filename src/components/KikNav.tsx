@@ -3,7 +3,6 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { ArrowLeft, FolderKanban, Info } from 'lucide-react';
-import KikLogo from '@/components/KikLogo';
 
 export default function KikNav() {
   const pathname = usePathname();
@@ -27,8 +26,6 @@ export default function KikNav() {
             <ArrowLeft className="w-4 h-4" />
             <span className="hidden sm:inline">Blue Ferret</span>
           </Link>
-
-          <KikLogo size="sm" variant="compact" href="/kik" />
 
           <div className="flex items-center gap-1 sm:gap-2">
             <Link href="/kik/pro-kik" className={linkClass('/kik/pro-kik')}>

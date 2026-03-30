@@ -1,6 +1,5 @@
 'use client';
 
-import Image from 'next/image';
 import { motion } from 'motion/react';
 import Link from 'next/link';
 import {
@@ -67,14 +66,14 @@ export default function ProKikPage() {
 
   return (
     <div className="min-h-screen">
-      <section className="relative py-16 sm:py-24 lg:py-28 px-4 sm:px-6 overflow-hidden">
+      <section className="relative pt-14 pb-8 sm:pt-20 sm:pb-10 lg:pt-24 lg:pb-12 px-4 sm:px-6 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-emerald-50/90 via-white to-blue-50/50" />
         <div className="absolute inset-0 bg-dots-kik opacity-40" />
         <div className="absolute inset-0 bg-grain opacity-50" />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_90%_60%_at_20%_0%,#4BB27222_0%,transparent_60%)]" />
 
         <div className="relative max-w-6xl mx-auto">
-          <div className="grid lg:grid-cols-[1.05fr_0.95fr] gap-8 lg:gap-12 items-start">
+          <div className="max-w-3xl">
             <motion.div
               initial={{ opacity: 0, y: 22 }}
               animate={{ opacity: 1, y: 0 }}
@@ -118,59 +117,11 @@ export default function ProKikPage() {
                 </Link>
               </div>
             </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, y: 24, scale: 0.98 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              transition={{ type: 'spring', stiffness: 110, damping: 14, delay: 0.1 }}
-              className="rounded-3xl border border-[var(--kik-accent)]/25 bg-white/90 backdrop-blur-sm p-4 sm:p-5 shadow-[0_24px_90px_-45px_rgba(16,24,40,0.55)]"
-            >
-              <div className="flex items-center gap-3 mb-3 sm:mb-4">
-                <div className="w-11 h-11 rounded-xl bg-[var(--kik-accent)]/10 border border-[var(--kik-accent)]/25 flex items-center justify-center overflow-hidden">
-                  <Image
-                    src="/logo-kik-greenmark.webp"
-                    alt="KIK зелений знак"
-                    width={30}
-                    height={30}
-                    className="w-7 h-7 object-contain"
-                  />
-                </div>
-                <div>
-                  <p className="text-sm font-bold text-slate-800">Комікс KIK вдома</p>
-                  <p className="text-xs text-slate-500">Повний кольоровий кадр платформи</p>
-                </div>
-              </div>
-
-              <div className="relative aspect-[1200/407] rounded-2xl overflow-hidden border border-slate-200/80 bg-white shadow-inner">
-                <Image
-                  src="/comic-kik.webp"
-                  alt="Комікс про KIK вдома"
-                  fill
-                  sizes="(min-width: 1024px) 520px, 100vw"
-                  className="object-contain"
-                />
-              </div>
-
-              <div className="mt-4 grid sm:grid-cols-3 gap-2.5">
-                <div className="rounded-xl bg-slate-50 border border-slate-200/80 p-3">
-                  <p className="text-xs text-slate-500 mb-1">Формат</p>
-                  <p className="text-sm font-semibold text-slate-800">Авторські ігри</p>
-                </div>
-                <div className="rounded-xl bg-slate-50 border border-slate-200/80 p-3">
-                  <p className="text-xs text-slate-500 mb-1">Комунікація</p>
-                  <p className="text-sm font-semibold text-slate-800">Пряма та жива</p>
-                </div>
-                <div className="rounded-xl bg-slate-50 border border-slate-200/80 p-3">
-                  <p className="text-xs text-slate-500 mb-1">Пріоритет</p>
-                  <p className="text-sm font-semibold text-slate-800">Прозорий запуск</p>
-                </div>
-              </div>
-            </motion.div>
           </div>
         </div>
       </section>
 
-      <section className="py-10 sm:py-14 lg:py-16 px-4 sm:px-6">
+      <section className="pt-6 pb-10 sm:pt-8 sm:pb-12 lg:pt-10 lg:pb-14 px-4 sm:px-6">
         <div className="max-w-6xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 16 }}

@@ -76,8 +76,6 @@ export default function GamePageClient({ game }: { game: Game }) {
   const palette = game.palette || '#283D57';
   const accent = game.accent || palette;
   const heroRef = useRef<HTMLElement>(null);
-  const lockSoundRef = useRef<HTMLAudioElement | null>(null);
-  const lastLockSoundAtRef = useRef(0);
   const lockFeedbackTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const assets = getGameAssets(game.slug);
   const [lockFeedbackStage, setLockFeedbackStage] = useState<StageKey | null>(null);
@@ -179,38 +177,14 @@ export default function GamePageClient({ game }: { game: Game }) {
   }, [game.slug, game.stages]);
 
   useEffect(() => {
-    const audio = new Audio('/sounds/lock-clang.mp3');
-    audio.preload = 'auto';
-    audio.volume = 0.55;
-    lockSoundRef.current = audio;
-
     return () => {
       if (lockFeedbackTimeoutRef.current) {
         clearTimeout(lockFeedbackTimeoutRef.current);
       }
-      if (lockSoundRef.current) {
-        lockSoundRef.current.pause();
-        lockSoundRef.current = null;
-      }
     };
   }, []);
 
-  const playLockSound = (mode: 'lock' | 'unlock' = 'lock') => {
-    const now = Date.now();
-    if (now - lastLockSoundAtRef.current < 170) return;
-    lastLockSoundAtRef.current = now;
-
-    const audio = lockSoundRef.current;
-    if (!audio) return;
-
-    audio.playbackRate = mode === 'unlock' ? 1.08 : 0.94;
-    audio.volume = mode === 'unlock' ? 0.48 : 0.62;
-    audio.currentTime = 0;
-    void audio.play().catch(() => undefined);
-  };
-
   const triggerLockedFeedback = (stageKey: StageKey) => {
-    playLockSound('lock');
     setLockFeedbackStage(stageKey);
     if (lockFeedbackTimeoutRef.current) {
       clearTimeout(lockFeedbackTimeoutRef.current);
@@ -228,7 +202,6 @@ export default function GamePageClient({ game }: { game: Game }) {
 
     setExpandedStage((prev) => {
       if (prev === stageKey) return null;
-      playLockSound('unlock');
       return stageKey;
     });
   };
@@ -674,18 +647,7 @@ export default function GamePageClient({ game }: { game: Game }) {
                 <SkeletonLines count={4} maxWidth={90} />
               )}
 
-              <div className="w-full h-px bg-white/10 mt-6 mb-6" />
-
-              {/* Arrow decoration */}
-              {assets?.arrow && (
-                <div className="flex justify-center">
-                  <img
-                    src={assets.arrow}
-                    alt=""
-                    className="w-20 sm:w-32 h-auto opacity-45"
-                  />
-                </div>
-              )}
+              <div className="w-full h-px bg-white/10 mt-6" />
             </motion.div>
           </div>
         </div>
@@ -772,7 +734,7 @@ export default function GamePageClient({ game }: { game: Game }) {
                     }
                   }}
                   onTouchStart={() => {
-                    if (isLocked) playLockSound('lock');
+                    if (isLocked) triggerLockedFeedback(stageKey);
                   }}
                 >
                   <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between mb-4 sm:mb-5">

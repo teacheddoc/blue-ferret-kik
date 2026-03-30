@@ -11,8 +11,12 @@ import Logo from './Logo';
 import games from '@/data/games';
 
 const GAMES_DROPDOWN = [
-  { href: '/igry', label: 'Всі ігри' },
-  ...games.map((g) => ({ href: `/igry/${g.slug}`, label: g.name })),
+  { href: '/igry', label: 'Всі ігри', hidden: false },
+  ...games.map((g) => ({
+    href: `/igry/${g.slug}`,
+    label: g.slug === 'trymaysia' ? 'Тримайся за все, що можеш!' : g.name,
+    hidden: g.slug !== 'trymaysia',
+  })),
 ];
 
 export default function Navbar() {
@@ -113,13 +117,15 @@ export default function Navbar() {
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -8 }}
                     transition={{ duration: 0.2 }}
-                    className="absolute top-full left-0 mt-2 py-2.5 w-56 bg-slate-900/98 backdrop-blur-2xl rounded-2xl shadow-[0_20px_60px_-20px_rgba(0,0,0,0.5)] border border-[var(--bf-accent)]/20"
+                    className="absolute top-full left-0 mt-2 py-2.5 w-72 bg-slate-900/98 backdrop-blur-2xl rounded-2xl shadow-[0_20px_60px_-20px_rgba(0,0,0,0.5)] border border-[var(--bf-accent)]/20"
                   >
                     {GAMES_DROPDOWN.map((item) => (
                       <Link
                         key={item.href}
                         href={item.href}
-                        className="block px-4 py-2.5 text-sm text-slate-300 hover:bg-[var(--bf-accent)]/20 hover:text-white transition-all duration-200 rounded-lg mx-2"
+                        className={`block px-4 py-2.5 text-sm text-slate-300 hover:bg-[var(--bf-accent)]/20 hover:text-white transition-all duration-200 rounded-lg mx-2 leading-snug whitespace-normal ${
+                          item.hidden ? 'hidden' : ''
+                        }`}
                       >
                         {item.label}
                       </Link>
@@ -206,7 +212,7 @@ export default function Navbar() {
                   <Link href="/" onClick={() => setMobileOpen(false)} className={`block py-3 px-4 rounded-xl text-base font-medium transition-colors ${isGamePage ? (pathname === '/' ? 'text-white bg-white/15' : 'text-slate-300 hover:bg-white/10') : (pathname === '/' ? 'text-[var(--bf-accent)] bg-[var(--bf-accent)]/10' : 'text-slate-600 hover:bg-[var(--bf-accent)]/5 hover:text-[var(--bf-accent)]')}`}>Головна</Link>
                   <div className={`px-4 py-2 text-xs font-semibold uppercase tracking-wider ${isGamePage ? 'text-slate-500' : 'text-slate-500'}`}>Наші ігри</div>
                   {GAMES_DROPDOWN.map((item) => (
-                    <Link key={item.href} href={item.href} onClick={() => setMobileOpen(false)} className={`block py-2.5 px-6 rounded-xl transition-colors ${isGamePage ? 'text-slate-300 hover:bg-white/10 hover:text-[var(--bf-accent)]' : 'text-slate-600 hover:bg-[var(--bf-accent)]/5 hover:text-[var(--bf-accent)]'}`}>
+                    <Link key={item.href} href={item.href} onClick={() => setMobileOpen(false)} className={`block py-2.5 px-6 rounded-xl transition-colors ${isGamePage ? 'text-slate-300 hover:bg-white/10 hover:text-[var(--bf-accent)]' : 'text-slate-600 hover:bg-[var(--bf-accent)]/5 hover:text-[var(--bf-accent)]'} ${item.hidden ? 'hidden' : ''}`}>
                       {item.label}
                     </Link>
                   ))}

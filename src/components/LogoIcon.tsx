@@ -17,7 +17,11 @@ export default function LogoIcon({
       alt="Blue Ferret"
       width={size}
       height={size}
-      className={`object-contain ${light ? 'brightness-[2] contrast-[1.2]' : 'mix-blend-multiply'} ${className}`}
+      className={`object-contain ${
+        light
+          ? 'brightness-[1.08] contrast-[1.05] saturate-[1.05] drop-shadow-[0_2px_6px_rgba(0,0,0,0.35)]'
+          : 'contrast-[1.02] saturate-[1.02]'
+      } ${className}`}
       priority
       unoptimized
     />
