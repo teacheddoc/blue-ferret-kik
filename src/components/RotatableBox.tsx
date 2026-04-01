@@ -6,6 +6,7 @@ interface RotatableBoxProps {
   frontImage?: string;
   backImage?: string;
   topImage?: string;
+  bottomImage?: string;
   leftSideImage?: string;
   rightSideImage?: string;
   color?: string;
@@ -18,6 +19,7 @@ export default function RotatableBox({
   frontImage,
   backImage,
   topImage,
+  bottomImage,
   leftSideImage,
   rightSideImage,
   color = '#283D57',
@@ -381,12 +383,27 @@ export default function RotatableBox({
 
         {/* ─── Bottom ─── */}
         <div style={face(W, D, `rotateX(-90deg) translateZ(${H / 2}px)`, shade(0.45))}>
+          {bottomImage ? (
+            <img
+              src={bottomImage}
+              alt=""
+              className="w-full h-full object-cover"
+              style={{ backgroundColor: panelTone, filter: 'saturate(1.04) contrast(1.03)' }}
+              draggable={false}
+              loading="lazy"
+              decoding="async"
+            />
+          ) : (
+            <div
+              className="absolute inset-0"
+              style={{
+                background: `linear-gradient(180deg, ${shade(0.48)} 0%, ${shade(0.35)} 100%)`,
+              }}
+            />
+          )}
           <div
-            className="absolute inset-0"
-            style={{
-              background: `linear-gradient(180deg, ${shade(0.48)} 0%, ${shade(0.35)} 100%)`,
-              boxShadow: 'inset 0 0 20px -5px rgba(0,0,0,0.62)',
-            }}
+            className="absolute inset-0 pointer-events-none"
+            style={{ boxShadow: 'inset 0 0 20px -5px rgba(0,0,0,0.62)' }}
           />
         </div>
 

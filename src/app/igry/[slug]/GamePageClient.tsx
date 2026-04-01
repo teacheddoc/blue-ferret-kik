@@ -47,11 +47,12 @@ function getGameAssets(slug: string) {
       heroBackgroundVideoMp4: '/images/trymaysia/moryaky.mp4',
       heroBackgroundVideoWebm: '/images/trymaysia/moryaky.webm',
       heroBackgroundFallback: '/images/trymaysia/moryaky.gif',
-      boxMockup: '/images/trymaysia/box-front-center-v8.webp',
-      boxBack: '/images/trymaysia/box-front-bottom-v8.webp',
-      boxTop: '/images/trymaysia/box-front-top-v8.webp',
-      boxSideLeft: '/images/trymaysia/box-side-left-front-v8.webp',
-      boxSideRight: '/images/trymaysia/box-side-right-front-v8.webp',
+      boxMockup: '/images/trymaysia/box-front-center-v10.webp',
+      boxBack: '/images/trymaysia/box-back-center-v10.webp',
+      boxTop: '/images/trymaysia/box-top-v10.webp',
+      boxBottom: '/images/trymaysia/box-bottom-v10.webp',
+      boxSideLeft: '/images/trymaysia/box-side-left-front-v10.webp',
+      boxSideRight: '/images/trymaysia/box-side-right-front-v10.webp',
       arrow: '/images/trymaysia/arrow.png',
       aboutCharacters: [
         '/images/trymaysia/characters/char-2.png',
@@ -598,6 +599,7 @@ export default function GamePageClient({ game }: { game: Game }) {
                   frontImage={assets?.boxMockup || game.coverImage}
                   backImage={assets?.boxBack}
                   topImage={assets?.boxTop}
+                  bottomImage={assets?.boxBottom}
                   leftSideImage={assets?.boxSideLeft}
                   rightSideImage={assets?.boxSideRight}
                   color={palette}
