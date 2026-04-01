@@ -117,7 +117,7 @@ export default function RotatableBox({
   const tint = (factor: number, alpha: number) =>
     `rgba(${Math.round(baseRgb.r * factor)},${Math.round(baseRgb.g * factor)},${Math.round(baseRgb.b * factor)},${alpha})`;
 
-  const panelTone = shade(0.84);
+  const panelTone = shade(0.9);
 
   const face = (
     w: number,
@@ -185,8 +185,8 @@ export default function RotatableBox({
             <img
               src={frontImage}
               alt=""
-              className="w-full h-full object-contain"
-              style={{ backgroundColor: panelTone }}
+              className="w-full h-full object-cover"
+              style={{ backgroundColor: panelTone, filter: 'saturate(1.04) contrast(1.03)' }}
               draggable={false}
               loading="eager"
               decoding="async"
@@ -200,7 +200,7 @@ export default function RotatableBox({
           <div
             className="absolute inset-0 pointer-events-none"
             style={{
-              background: `linear-gradient(180deg, ${tint(0.3, 0.6)} 0%, ${tint(0.42, 0.16)} 34%, ${tint(0.46, 0.15)} 66%, ${tint(0.3, 0.42)} 100%)`,
+              background: `linear-gradient(180deg, ${tint(0.34, 0.42)} 0%, ${tint(0.46, 0.1)} 36%, ${tint(0.48, 0.1)} 64%, ${tint(0.34, 0.3)} 100%)`,
             }}
           />
           <div
@@ -214,10 +214,6 @@ export default function RotatableBox({
             className="absolute inset-0 pointer-events-none"
             style={{ boxShadow: 'inset 0 0 26px -10px rgba(0,0,0,0.45)' }}
           />
-          <div
-            className="absolute inset-[7px] rounded-[3px] pointer-events-none"
-            style={{ boxShadow: 'inset 0 0 0 1px rgba(255,255,255,0.18)' }}
-          />
         </div>
 
         {/* ─── Back ─── */}
@@ -226,8 +222,8 @@ export default function RotatableBox({
             <img
               src={backImage}
               alt=""
-              className="w-full h-full object-contain"
-              style={{ backgroundColor: panelTone }}
+              className="w-full h-full object-cover"
+              style={{ backgroundColor: panelTone, filter: 'saturate(1.04) contrast(1.03)' }}
               draggable={false}
               loading="lazy"
               decoding="async"
@@ -253,7 +249,7 @@ export default function RotatableBox({
           <div
             className="absolute inset-0 pointer-events-none"
             style={{
-              background: `linear-gradient(180deg, ${tint(0.3, 0.34)} 0%, ${tint(0.42, 0.12)} 36%, ${tint(0.45, 0.12)} 64%, ${tint(0.3, 0.3)} 100%)`,
+              background: `linear-gradient(180deg, ${tint(0.35, 0.24)} 0%, ${tint(0.45, 0.08)} 36%, ${tint(0.45, 0.1)} 64%, ${tint(0.34, 0.2)} 100%)`,
             }}
           />
           <div
@@ -268,8 +264,8 @@ export default function RotatableBox({
             <img
               src={rightSideImage}
               alt=""
-              className="w-full h-full object-contain"
-              style={{ backgroundColor: panelTone }}
+              className="w-full h-full object-cover"
+              style={{ backgroundColor: panelTone, filter: 'saturate(1.04) contrast(1.03)' }}
               draggable={false}
               loading="lazy"
               decoding="async"
@@ -314,8 +310,8 @@ export default function RotatableBox({
             <img
               src={leftSideImage}
               alt=""
-              className="w-full h-full object-contain"
-              style={{ backgroundColor: panelTone }}
+              className="w-full h-full object-cover"
+              style={{ backgroundColor: panelTone, filter: 'saturate(1.04) contrast(1.03)' }}
               draggable={false}
               loading="lazy"
               decoding="async"
@@ -360,8 +356,8 @@ export default function RotatableBox({
             <img
               src={topImage}
               alt=""
-              className="w-full h-full object-contain"
-              style={{ backgroundColor: panelTone, transform: 'none' }}
+              className="w-full h-full object-cover"
+              style={{ backgroundColor: panelTone, transform: 'none', filter: 'saturate(1.04) contrast(1.03)' }}
               draggable={false}
               loading="lazy"
               decoding="async"
