@@ -145,8 +145,11 @@ export default function GamePageClient({ game }: { game: Game }) {
   const accentIconStrong = `rgba(${accentRgb.r},${accentRgb.g},${accentRgb.b},0.68)`;
   const accentIconSoft = `rgba(${accentRgb.r},${accentRgb.g},${accentRgb.b},0.55)`;
   const accentGradientStart = darken(accent, 0.72);
-  const boxBg = `linear-gradient(180deg, ${darken(palette, 0.22)} 0%, ${darken(palette, 0.3)} 100%)`;
-  const boxHighlight = `radial-gradient(circle at 50% 28%, rgba(255,255,255,0.1) 0%, transparent 55%)`;
+  const boxBg = `linear-gradient(180deg, ${darken(palette, 0.27)} 0%, ${darken(palette, 0.24)} 46%, ${darken(palette, 0.22)} 100%)`;
+  const boxHighlight = `
+    radial-gradient(circle at 50% 20%, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.02) 34%, transparent 56%),
+    radial-gradient(ellipse at 50% 112%, rgba(${paletteRgb.r}, ${paletteRgb.g}, ${paletteRgb.b}, 0.28) 0%, transparent 62%)
+  `;
 
   useEffect(() => {
     const root = document.documentElement;

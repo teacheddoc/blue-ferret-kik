@@ -105,12 +105,19 @@ export default function RotatableBox({
     return () => cancelAnimationFrame(raf);
   }, [isDragging]);
 
-  const shade = (factor: number) => {
-    const r = parseInt(color.slice(1, 3), 16);
-    const g = parseInt(color.slice(3, 5), 16);
-    const b = parseInt(color.slice(5, 7), 16);
-    return `rgb(${Math.round(r * factor)},${Math.round(g * factor)},${Math.round(b * factor)})`;
+  const baseRgb = {
+    r: parseInt(color.slice(1, 3), 16),
+    g: parseInt(color.slice(3, 5), 16),
+    b: parseInt(color.slice(5, 7), 16),
   };
+
+  const shade = (factor: number) => {
+    return `rgb(${Math.round(baseRgb.r * factor)},${Math.round(baseRgb.g * factor)},${Math.round(baseRgb.b * factor)})`;
+  };
+  const tint = (factor: number, alpha: number) =>
+    `rgba(${Math.round(baseRgb.r * factor)},${Math.round(baseRgb.g * factor)},${Math.round(baseRgb.b * factor)},${alpha})`;
+
+  const panelTone = shade(0.9);
 
   const face = (
     w: number,
@@ -140,13 +147,13 @@ export default function RotatableBox({
       style={{
         perspective: 1500,
         background: `
-          radial-gradient(circle at 50% -20%, rgba(255,255,255,0.16) 0%, transparent 44%),
-          radial-gradient(circle at 50% 118%, rgba(0,159,227,0.2) 0%, transparent 56%),
-          linear-gradient(180deg, rgba(255,255,255,0.04) 0%, rgba(8,16,28,0.26) 100%)
+          radial-gradient(130% 80% at 50% -20%, rgba(255,255,255,0.1) 0%, transparent 46%),
+          radial-gradient(110% 76% at 50% 122%, rgba(${baseRgb.r},${baseRgb.g},${baseRgb.b},0.24) 0%, transparent 58%),
+          linear-gradient(180deg, ${shade(0.32)} 0%, ${shade(0.26)} 44%, ${shade(0.22)} 100%)
         `,
-        border: '1px solid rgba(255,255,255,0.1)',
+        border: `1px solid rgba(${baseRgb.r},${baseRgb.g},${baseRgb.b},0.36)`,
         boxShadow:
-          'inset 0 1px 0 rgba(255,255,255,0.16), 0 30px 58px -34px rgba(0,0,0,0.72), 0 0 0 1px rgba(0,159,227,0.12)',
+          `inset 0 1px 0 rgba(255,255,255,0.12), 0 30px 58px -34px rgba(0,0,0,0.72), 0 0 0 1px rgba(${baseRgb.r},${baseRgb.g},${baseRgb.b},0.2)`,
         borderRadius: 24,
         padding: '24px 20px 22px',
       }}
@@ -178,7 +185,8 @@ export default function RotatableBox({
             <img
               src={frontImage}
               alt=""
-              className="w-full h-full object-contain bg-[#2e4869]"
+              className="w-full h-full object-contain"
+              style={{ backgroundColor: panelTone }}
               draggable={false}
               loading="eager"
               decoding="async"
@@ -189,6 +197,12 @@ export default function RotatableBox({
             </span>
           )}
           {/* Subtle glare */}
+          <div
+            className="absolute inset-0 pointer-events-none"
+            style={{
+              background: `linear-gradient(180deg, ${tint(0.34, 0.46)} 0%, ${tint(0.46, 0.12)} 36%, ${tint(0.48, 0.12)} 64%, ${tint(0.34, 0.34)} 100%)`,
+            }}
+          />
           <div
             className="absolute inset-0 pointer-events-none"
             style={{
@@ -212,7 +226,8 @@ export default function RotatableBox({
             <img
               src={backImage}
               alt=""
-              className="w-full h-full object-contain bg-[#2e4869]"
+              className="w-full h-full object-contain"
+              style={{ backgroundColor: panelTone }}
               draggable={false}
               loading="lazy"
               decoding="async"
@@ -237,6 +252,12 @@ export default function RotatableBox({
           />
           <div
             className="absolute inset-0 pointer-events-none"
+            style={{
+              background: `linear-gradient(180deg, ${tint(0.35, 0.26)} 0%, ${tint(0.45, 0.08)} 36%, ${tint(0.45, 0.1)} 64%, ${tint(0.34, 0.22)} 100%)`,
+            }}
+          />
+          <div
+            className="absolute inset-0 pointer-events-none"
             style={{ boxShadow: 'inset 0 0 24px -10px rgba(0,0,0,0.46)' }}
           />
         </div>
@@ -247,7 +268,8 @@ export default function RotatableBox({
             <img
               src={rightSideImage}
               alt=""
-              className="w-full h-full object-contain bg-[#2e4869]"
+              className="w-full h-full object-contain"
+              style={{ backgroundColor: panelTone }}
               draggable={false}
               loading="lazy"
               decoding="async"
@@ -292,7 +314,8 @@ export default function RotatableBox({
             <img
               src={leftSideImage}
               alt=""
-              className="w-full h-full object-contain bg-[#2e4869]"
+              className="w-full h-full object-contain"
+              style={{ backgroundColor: panelTone }}
               draggable={false}
               loading="lazy"
               decoding="async"
@@ -337,8 +360,8 @@ export default function RotatableBox({
             <img
               src={topImage}
               alt=""
-              className="w-full h-full object-contain bg-[#2e4869]"
-              style={{ transform: 'none' }}
+              className="w-full h-full object-contain"
+              style={{ backgroundColor: panelTone, transform: 'none' }}
               draggable={false}
               loading="lazy"
               decoding="async"
