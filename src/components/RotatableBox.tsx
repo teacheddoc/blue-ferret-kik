@@ -117,7 +117,7 @@ export default function RotatableBox({
   const tint = (factor: number, alpha: number) =>
     `rgba(${Math.round(baseRgb.r * factor)},${Math.round(baseRgb.g * factor)},${Math.round(baseRgb.b * factor)},${alpha})`;
 
-  const panelTone = shade(0.9);
+  const panelTone = shade(0.84);
 
   const face = (
     w: number,
@@ -200,7 +200,7 @@ export default function RotatableBox({
           <div
             className="absolute inset-0 pointer-events-none"
             style={{
-              background: `linear-gradient(180deg, ${tint(0.34, 0.46)} 0%, ${tint(0.46, 0.12)} 36%, ${tint(0.48, 0.12)} 64%, ${tint(0.34, 0.34)} 100%)`,
+              background: `linear-gradient(180deg, ${tint(0.3, 0.6)} 0%, ${tint(0.42, 0.16)} 34%, ${tint(0.46, 0.15)} 66%, ${tint(0.3, 0.42)} 100%)`,
             }}
           />
           <div
@@ -253,7 +253,7 @@ export default function RotatableBox({
           <div
             className="absolute inset-0 pointer-events-none"
             style={{
-              background: `linear-gradient(180deg, ${tint(0.35, 0.26)} 0%, ${tint(0.45, 0.08)} 36%, ${tint(0.45, 0.1)} 64%, ${tint(0.34, 0.22)} 100%)`,
+              background: `linear-gradient(180deg, ${tint(0.3, 0.34)} 0%, ${tint(0.42, 0.12)} 36%, ${tint(0.45, 0.12)} 64%, ${tint(0.3, 0.3)} 100%)`,
             }}
           />
           <div
