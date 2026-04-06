@@ -12,6 +12,11 @@ interface RotatableBoxProps {
   color?: string;
   sideLabel?: string;
   depthScale?: number;
+  dimensions?: {
+    width: number;
+    height: number;
+    depth: number;
+  };
   initialRotation?: { x: number; y: number };
   interactive?: boolean;
   className?: string;
@@ -27,6 +32,7 @@ export default function RotatableBox({
   color = '#283D57',
   sideLabel = 'Тримайся',
   depthScale = 0.72,
+  dimensions,
   initialRotation = { x: -7, y: -13 },
   interactive = true,
   className = '',
@@ -36,10 +42,10 @@ export default function RotatableBox({
   const inertiaRef = useRef({ vx: 0, vy: 0, active: false });
   const lastPos = useRef({ x: 0, y: 0 });
 
-  // Geometry calibrated to the actual box dieline proportions
-  // front: 2457x2183, top: 2456x834
-  const FRONT_RATIO = 2457 / 2183;
-  const DEPTH_RATIO = 834 / 2456;
+  // Geometry calibrated to physical box dimensions (W x H x D).
+  const boxSize = dimensions ?? { width: 2457, height: 2183, depth: 834 };
+  const FRONT_RATIO = boxSize.width / boxSize.height;
+  const DEPTH_RATIO = boxSize.depth / boxSize.width;
   const H = 258;
   const W = Math.round(H * FRONT_RATIO);
   const rawDepth = Math.round(W * DEPTH_RATIO);

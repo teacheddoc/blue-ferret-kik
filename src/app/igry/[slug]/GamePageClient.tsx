@@ -109,6 +109,13 @@ export default function GamePageClient({ game }: { game: Game }) {
     hidden: 'Приховано',
   } as const;
 
+  const statusLabels = {
+    announcement: 'Анонс',
+    production: 'Виробництво',
+    preorder: 'Передзамовлення',
+    onsale: 'У продажі',
+  } as const;
+
   // Generate dark theme colors from palette
   const hex2rgb = (hex: string) => {
     const r = parseInt(hex.slice(1, 3), 16);
@@ -496,10 +503,7 @@ export default function GamePageClient({ game }: { game: Game }) {
                 Стан проєкту
               </p>
               <h3 className="text-2xl font-bold text-white/90 mb-5">
-                {game.status === 'announcement' && 'Анонс'}
-                {game.status === 'production' && 'Виробництво'}
-                {game.status === 'preorder' && 'Передзамовлення'}
-                {game.status === 'onsale' && 'У продажі'}
+                {statusLabels[game.status]}
               </h3>
 
               {/* Progress bar */}
@@ -604,7 +608,8 @@ export default function GamePageClient({ game }: { game: Game }) {
                   rightSideImage={assets?.boxSideRight}
                   color={palette}
                   sideLabel={game.name}
-                  depthScale={0.72}
+                  dimensions={{ width: 20, height: 17.7, depth: 6.7 }}
+                  depthScale={1}
                   initialRotation={{ x: -7, y: -13 }}
                   interactive
                   className="scale-[0.74] min-[400px]:scale-[0.84] sm:scale-[1.02] md:scale-[1.12] lg:scale-[1.18]"
@@ -637,7 +642,7 @@ export default function GamePageClient({ game }: { game: Game }) {
                   border: `1px solid ${accent}40`,
                 }}
               >
-                {game.status === 'production' ? 'Виробництво' : game.status}
+                {statusLabels[game.status]}
               </span>
 
               <h3 className="text-lg sm:text-3xl font-bold text-white/90 uppercase tracking-[0.02em] sm:tracking-wide mb-4 sm:mb-6">
